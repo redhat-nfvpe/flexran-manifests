@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: openshift-tests
+spec:
+  containers:
+  - name: origin-tests
+    image: quay.io/openshift/origin-tests:4.4
+    command: ['cat']
+    tty: true
+    volumeMounts:
+    - mountPath: /kubeconfig
+      name: auth-volume
+    env:
+      - name: KUBECONFIG
+        value: /kubeconfig
+  volumes:
+  - name: auth-volume
+    hostPath:
+      path: /root/clusterconfigs/auth/kubeconfig
+      type: File
