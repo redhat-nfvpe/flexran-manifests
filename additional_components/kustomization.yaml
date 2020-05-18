@@ -1,0 +1,3 @@
+resources:
+- local_image_registry.yaml
+- performance_operator.yaml
