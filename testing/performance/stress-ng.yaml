@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: stress 
 spec:
-  replicas: 29
+  replicas: #replicas_number#
   selector:
     matchLabels:
       name: stress 

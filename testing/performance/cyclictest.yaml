@@ -15,7 +15,7 @@ spec:
     - name: tool
       value: "cyclictest"
     - name: DURATION
-      value: "2s"
+      value: "#TOTAL_SECONDS#s"
     - name: DISABLE_CPU_BALANCE
       value: "y"
       # DISABLE_CPU_BALANCE requires privileged=true

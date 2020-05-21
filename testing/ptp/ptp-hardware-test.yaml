@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ptp-hardware-test
+spec:
+  hostNetwork: true
+  containers:
+  - name: ptp-hardware-test
+    image: quay.io/yrobla/ptp_hardware_checker
+    tty: true
+    env:
+      - name: NIC_PREFIX
+        value: eno
