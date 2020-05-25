@@ -7,7 +7,7 @@ inside a container with net=host privileges.
 
 To execute that, please run:
 
-podman run --net0host --env NIC_PREFIX=eno quay.io/yrobla/ptp_hardware_checker
+```podman run --net=host --env NIC_PREFIX=eno quay.io/yrobla/ptp_hardware_checker```
 
 This will return all the timing settings for the nics starting with
 the prefix you are passing into NIC_PREFIX env var.
