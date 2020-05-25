@@ -8,9 +8,7 @@ spec:
   - "processor.max_cstate=1"
   - "intel_idle.max_cstate=0"
   - "intel_pstate=disable"
-  - "idle=poll"
   - "kthread_cpus=0"
-  - "rcu_nocbs=2-9"
   - "tsc=nowatchdog"
   cpu:
     isolated: "2-9"
