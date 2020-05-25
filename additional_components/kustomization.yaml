@@ -1,3 +1,4 @@
 resources:
 - local_image_registry.yaml
 - performance/performance_operator.yaml
+- ptp/ptp_operator.yaml
