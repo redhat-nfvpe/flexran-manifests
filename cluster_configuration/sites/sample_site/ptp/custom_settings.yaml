@@ -1,0 +1,12 @@
+apiVersion: ptp.openshift.io/v1
+kind: PtpConfig
+metadata:
+  name: ptp-slave-config
+  namespace: openshift-ptp
+spec:
+  profile:
+  - name: "slave"
+    interface: "eno1"
+    ptp4lOpts: "-s"
+    phc2sysOpts: "-a -r"
+

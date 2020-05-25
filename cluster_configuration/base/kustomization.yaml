@@ -2,4 +2,5 @@ resources:
 - performance_profile/mcp_master_label.yaml
 - performance_profile/node_labels.yaml
 - performance_profile/performance_profile.yaml
+- ptp/ptp_slaves_config.yaml
 

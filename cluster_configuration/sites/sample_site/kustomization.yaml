@@ -4,4 +4,5 @@ bases:
 - ../../base
 patchesStrategicMerge:
 - performance_profile/custom_settings.yaml
+- ptp/custom_settings.yaml
 
