@@ -4,4 +4,5 @@ resources:
 - performance_profile/performance_profile.yaml
 - ptp/ptp_slaves_config.yaml
 - multus/additional_network.yaml
+- sriov/sriov_newtork.yaml
 
