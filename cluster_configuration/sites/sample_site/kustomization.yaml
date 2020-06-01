@@ -5,4 +5,5 @@ bases:
 patchesStrategicMerge:
 - performance_profile/custom_settings.yaml
 - ptp/custom_settings.yaml
+- sriov/sriov_network_node_policy.yaml
 
