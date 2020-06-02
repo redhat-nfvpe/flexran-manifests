@@ -1,5 +1,6 @@
 resources:
 - local_image_registry.yaml
+- downscale_etcd.yaml
 - performance/performance_operator.yaml
 - ptp/ptp_operator.yaml
 - sriov/sriov_operator.yaml
