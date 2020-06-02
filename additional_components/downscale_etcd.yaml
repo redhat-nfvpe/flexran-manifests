@@ -1,19 +1,30 @@
+apiVersion: config.openshift.io/v1
+kind: ClusterVersion
+metadata:
+  name: version
+spec:
+  overrides:
+  - group: apps/v1
+    kind: Deployment
+    name: etcd-quorum-guard
+    namespace: openshift-machine-config-operator
+    unmanaged: true
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: etcd-quorum-guard
   namespace: openshift-machine-config-operator
-  unmanaged: true
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      k8s-app: etcd-quorum-guard
   template:
     metadata:
       creationTimestamp: null
       labels:
         k8s-app: etcd-quorum-guard
         name: etcd-quorum-guard
-  selector:
-    matchLabels:
-      k8s-app: etcd-quorum-guard
 
 
