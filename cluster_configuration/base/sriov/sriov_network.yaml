@@ -4,10 +4,15 @@ metadata:
   name: sriov-network
   namespace: openshift-sriov-network-operator 
 spec:
-  ipam: '{
-    "type": "static",
-    "addresses": [ { "address": "10.56.217.1/24" } ]
-  }'
-  capabilities: '{"mac": true, "ips": true}' 
+  ipam: |
+    {
+      "type": "static",
+      "addresses": [ { "address": "10.56.217.1/24" } ]
+    }
+  capabilities: |
+    {
+      "mac": true,
+      "ips": true
+    }
   resourceName: net1
   networkNamespace: default

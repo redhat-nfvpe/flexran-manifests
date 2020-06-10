@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-sriov-network-operator 
 spec:
   resourceName: net1
-  deviceType: vfio-pci
+  deviceType: netdevice
   nodeSelector:
     node-role.kubernetes.io/worker: ""
   priority: 10
