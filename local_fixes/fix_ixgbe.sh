@@ -14,5 +14,11 @@ sudo ostree admin unlock --hotfix
 sudo cp lib/modules/4.18.0-147.8.1.el8_1.x86_64/updates/drivers/net/ethernet/intel/ixgbe/ixgbe.ko /usr/lib/modules/4.18.0-147.8.1.el8_1.x86_64/kernel/drivers/net/ethernet/intel/ixgbe/ixgbe.ko.xz
 sudo rmmod ixgbe
 sudo modprobe ixgbe
+
+sudo mkdir /etc/rc.d
+sudo touch /etc/rc.d/rc.local
+echo "#!/bin/sh
+rmmod ixgbe && modprobe ixgbe" | sudo tee /etc/rc.d/rc.local
+sudo chmod a+x /etc/rc.d/rc.local
 EOF
 
