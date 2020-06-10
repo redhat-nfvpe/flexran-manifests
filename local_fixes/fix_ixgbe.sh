@@ -15,7 +15,7 @@ sudo cp lib/modules/4.18.0-147.8.1.el8_1.x86_64/updates/drivers/net/ethernet/int
 sudo rmmod ixgbe
 sudo modprobe ixgbe
 
-sudo mkdir /etc/rc.d
+sudo mkdir /etc/rc.d || true
 sudo touch /etc/rc.d/rc.local
 echo "#!/bin/sh
 rmmod ixgbe && modprobe ixgbe" | sudo tee /etc/rc.d/rc.local
