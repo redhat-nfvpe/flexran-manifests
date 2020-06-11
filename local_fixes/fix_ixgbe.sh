@@ -2,7 +2,7 @@
 
 # this is needed to add a new driver to use sriov in unsupported cards
 SERVER=$1
-KERNEL_VERSION=$(ssh core@192.168.111.47 uname -r)
+KERNEL_VERSION=$(ssh core@$SERVER uname -r)
 
 echo "Fixing driver in $SERVER"
 
