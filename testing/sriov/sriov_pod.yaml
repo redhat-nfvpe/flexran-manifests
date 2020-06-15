@@ -5,6 +5,8 @@ metadata:
   annotations:
     k8s.v1.cni.cncf.io/networks: sriov-network
 spec:
+  nodeSelector:
+    kubernetes.io/hostname: master-0
   containers:
   - name: sriov-container
     image: centos/tools
