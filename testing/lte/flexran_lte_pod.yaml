@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-lte-pod
+  name: flexran-lte-pod
+spec:
+  containers:
+    - securityContext:
+        privileged: false
+        capabilities:
+          add:
+            - SYS_ADMIN
+            - IPC_LOCK
+            - SYS_NICE
+            - SYS_ADMIN
+      command:
+        - bash
+        - /opt/run_l1.sh
+      tty: true
+      stdin: true
+      image: flexran:latest
+      imagePullPolicy: IfNotPresent
+      name: flexran-l1
+      resources:
+        requests:
+          memory: "32Gi"
+          cpu: "4"
+          hugepages-1Gi: "16Gi"
+          intel.com/intel_fec: '1'
+        limits:
+          memory: "32Gi"
+          cpu: "4"
+          hugepages-1Gi: "16Gi"
+          intel.com/intel_fec: '1'
+      volumeMounts:
+        - mountPath: /mnt/huge
+          name: hugepage
+        - name: sys
+          mountPath: /sys/
+          readOnly: false
+        - name: varrun
+          mountPath: /var/run/dpdk
+          readOnly: false
+    - securityContext:
+        privileged: false
+        capabilities:
+          add:
+            - SYS_ADMIN
+            - IPC_LOCK
+            - SYS_NICE
+            - SYS_ADMIN
+      command: ["/bin/sh", "-c"]
+      args: ["sleep 10; bash /opt/run_l1.sh"]
+      tty: true
+      stdin: true
+      image: flexran:latest
+      imagePullPolicy: IfNotPresent
+      env:
+      - name: TESTFILE
+        value: /opt/flexran/tests/lte/fd/testmac_fd.cfg   # this can be dl,ul,fd
+      name: flexran-testmac
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "1"
+        limits:
+          memory: "1Gi"
+          cpu: "1"
+      volumeMounts:
+        - mountPath: /mnt/huge
+          name: hugepage
+        - name: sys
+          mountPath: /sys/
+          readOnly: false
+        - name: varrun
+          mountPath: /var/run/dpdk
+          readOnly: false
+  volumes:
+    - name: hugepage
+      emptyDir:
+        medium: HugePages
+    - name: sys
+      hostPath:
+        path: "/sys"
+    - name: varrun
+      emptyDir: {}
