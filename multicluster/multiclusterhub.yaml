@@ -4,4 +4,4 @@ metadata:
    name: multiclusterhub
    namespace: open-cluster-management
 spec:
-   imagePullSecret: advanced-cluster-management-registry
+   imagePullSecret: ""
