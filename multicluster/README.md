@@ -7,5 +7,6 @@ the following annotation needs to be run:
 oc annotate etcdcluster etcd-cluster etcd.database.coreos.com/scope=clusterwide -n open-cluster-management
 
 NOTE: To properly clean up the the multicluster app, please execute
+https://github.com/open-cluster-management/deploy/blob/master/uninstall.sh and
 https://github.com/open-cluster-management/deploy/blob/master/hack/nuke.sh
 
