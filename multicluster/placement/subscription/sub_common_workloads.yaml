@@ -3,7 +3,7 @@ kind: Subscription
 metadata:
   name: flexran-common-workloads
   namespace: flexran-workloads
-  labels:
+  annotations:
     apps.open-cluster-management.io/github-path: additional_components
 spec:
   channel: flexran-workloads/acm-gitops-github
