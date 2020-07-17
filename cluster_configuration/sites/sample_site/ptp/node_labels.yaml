@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: slave-master-0
+  labels:
+    ptp/grandmaster: ""
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: slave-master-1
+  labels:
+    ptp/grandmaster: ""
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: slave-master-2
+  labels:
+    ptp/grandmaster: ""
+

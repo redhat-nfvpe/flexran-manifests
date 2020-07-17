@@ -1,21 +1,7 @@
 apiVersion: v1
 kind: Node
 metadata:
-  name: master-0
-  labels:
-    ptp/grandmaster: ""
----
-apiVersion: v1
-kind: Node
-metadata:
-  name: master-1
-  labels:
-    ptp/grandmaster: ""
----
-apiVersion: v1
-kind: Node
-metadata:
-  name: master-2
+  name: master-*
   labels:
     ptp/grandmaster: ""
 

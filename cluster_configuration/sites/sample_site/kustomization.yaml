@@ -6,5 +6,6 @@ resources:
 - sriov/sriov_network_node_policy.yaml
 patchesStrategicMerge:
 - performance_profile/custom_settings.yaml
+- ptp/node_labels.yaml
 - ptp/custom_settings.yaml
 
