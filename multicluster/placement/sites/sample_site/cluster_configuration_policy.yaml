@@ -21,3 +21,22 @@ spec:
           labels:
               cpumanager: "true"
               ptp/grandmaster: ""
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: v1
+        kind: Node
+        metadata:
+          name: slave-master-1
+          labels:
+              cpumanager: "true"
+              ptp/grandmaster: ""
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: v1
+        kind: Node
+        metadata:
+          name: slave-master-2
+          labels:
+              cpumanager: "true"
+              ptp/grandmaster: ""
+
