@@ -3,22 +3,22 @@ kind: Namespace
 metadata:
   labels:
           openshift.io/run-level: "1"
-  name: resource-locker
+  name: openshift-resource-locker
 ---
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: resource-locker-operator
-  namespace: resource-locker
+  namespace: openshift-resource-locker
 spec:
   targetNamespaces:
-  - resource-locker
+  - openshift-resource-locker
 ---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: resource-locker-operator
-  namespace: resource-locker
+  namespace: openshift-resource-locker
 spec:
   channel: alpha
   name: resource-locker-operator
