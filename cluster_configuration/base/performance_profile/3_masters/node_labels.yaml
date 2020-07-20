@@ -1,7 +1,0 @@
-# placeholder: add this label to all the master nodes for your site
-#apiVersion: v1
-#kind: Node
-#metadata:
-#  name: master-*
-#  labels:
-#    cpumanager: "true"

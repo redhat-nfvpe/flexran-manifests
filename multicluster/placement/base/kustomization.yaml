@@ -6,9 +6,9 @@ resources:
 - rule/placement_rule_nfd.yaml
 - rule/placement_rule_performance_profile.yaml
 - rule/placement_rule_ptp.yaml
-- rule/placement_rule_rl.yaml
+- rule/placement_rule_cluster_policy.yaml
 - subscription/sub_nfd.yaml
 - subscription/sub_performance_profile.yaml
 - subscription/sub_ptp.yaml
-- subscription/sub_rl.yaml
+- policy/cluster_configuration_policy.yaml
 
