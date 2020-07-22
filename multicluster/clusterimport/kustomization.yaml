@@ -1,0 +1,9 @@
+resources:
+- 00_endpoint-crd.yaml
+- 01_namespace.yaml
+- 02_sevice-account.yaml
+- 03_cluster-role-binding.yaml
+- 04_pull-secret.yaml
+- 05_bootstrap_secret.yaml
+- 06_endpoint-operator.yaml
+- 07_endpoint.yaml
