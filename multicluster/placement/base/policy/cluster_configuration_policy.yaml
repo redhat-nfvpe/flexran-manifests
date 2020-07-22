@@ -8,9 +8,24 @@ metadata:
     policy.mcm.ibm.com/categories: PR.IP Information Protection Processes and Procedures
     policy.mcm.ibm.com/controls: PR.IP-1 Baseline configuration
 spec:
-     complianceType: musthave
-     remediationAction: inform
-     disabled: false
-     namespaces:
-       exclude: ["kube-*"]
-       include: ["default"]
+  complianceType: musthave
+  remediationAction: inform
+  disabled: false
+  namespaces:
+    exclude: ["kube-*"]
+    include: ["default"]
+  object-templates:
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: imageregistry.operator.openshift.io/v1
+        kind: Config
+        metadata:
+          name: cluster
+        spec:
+          managementState: Managed
+          replicas: 1
+          logging: 2
+          storage:
+            emptyDir: {}
+          pvc:
+            claim:

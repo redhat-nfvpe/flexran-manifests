@@ -1,14 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-        #- channel/namespace.yaml
-        #- channel/channel.yaml
-        #- rule/placement_rule_nfd.yaml
-        #- rule/placement_rule_performance_profile.yaml
-        #- rule/placement_rule_ptp.yaml
-        #- rule/placement_rule_cluster_policy.yaml
-        #- subscription/sub_nfd.yaml
-        #- subscription/sub_performance_profile.yaml
-        #- subscription/sub_ptp.yaml
+- channel/namespace.yaml
+- channel/channel.yaml
+- rule/placement_rule_nfd.yaml
+- rule/placement_rule_performance_profile.yaml
+- rule/placement_rule_ptp.yaml
+- rule/placement_rule_cluster_policy.yaml
+- subscription/sub_nfd.yaml
+- subscription/sub_performance_profile.yaml
+- subscription/sub_ptp.yaml
 - policy/cluster_configuration_policy.yaml
 

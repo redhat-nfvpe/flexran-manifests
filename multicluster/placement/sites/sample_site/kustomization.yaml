@@ -3,8 +3,7 @@ kind: Kustomization
 bases:
 - ../../base/
 patchesStrategicMerge:
-        #- sub_nfd.yaml
-        #- sub_performance_profile.yaml
-        #- sub_ptp.yaml
-- cluster_configuration_policy.yaml
+- sub_nfd.yaml
+- sub_performance_profile.yaml
+- sub_ptp.yaml
 
