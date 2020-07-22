@@ -1,0 +1,3 @@
+resources:
+- acm_operator.yaml
+- multicluster_hub.yaml
