@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- nfd_operator.yaml
-- nfd_cr.yaml
+- 00_nfd_operator.yaml
 
