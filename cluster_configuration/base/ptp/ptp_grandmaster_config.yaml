@@ -13,5 +13,5 @@ spec:
   - profile: "grandmaster"
     priority: 4
     match:
-    - node-role.kubernetes.io/master: ""
+    - nodeLabel: "node-role.kubernetes.io/master"
 
