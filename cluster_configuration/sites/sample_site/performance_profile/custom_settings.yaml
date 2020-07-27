@@ -15,5 +15,5 @@ spec:
   hugepages:
     pages:
     - size: "1G"
-      count: 16
+      count: 4
       node: 0

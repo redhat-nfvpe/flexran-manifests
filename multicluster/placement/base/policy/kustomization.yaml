@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - cluster_configuration_policy.yaml
 - cr_policy.yaml
+- cvo_policy.yaml
