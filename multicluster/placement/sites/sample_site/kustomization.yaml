@@ -6,4 +6,5 @@ patchesStrategicMerge:
 - sub_nfd.yaml
 - sub_performance_profile.yaml
 - sub_ptp.yaml
+- sub_sriov.yaml
 
