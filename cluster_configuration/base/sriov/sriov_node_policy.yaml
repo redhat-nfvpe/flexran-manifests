@@ -10,4 +10,3 @@ spec:
     node-role.kubernetes.io/worker: ""
   priority: 10
   numVfs: 3
-  nicSelector: {} 
