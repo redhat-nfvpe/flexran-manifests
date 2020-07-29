@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
 - sriov_operator.yaml
 - sriov_network.yaml
+- sriov_node_policy.yaml
 
