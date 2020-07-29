@@ -4,8 +4,8 @@ This project contains a set of manifests that will configure an OpenShift platfo
 
 ## Getting Started
 
-First thing will be to apply the extra operators missing. This needs to be done at first stage,
-because they take time to be applied. This can be done with:
+First thing will be to apply the extra operators that are missing. This needs to be done at first stage,
+because they take some time to be applied. This can be done with:
 
 ```
 oc apply -k additional_components
@@ -16,6 +16,13 @@ Manifests can be applied on a running cluster, by simple running:
 
 ```
 oc apply -k cluster_configuration/path/to/site/
+```
+
+for example you can run:
+
+```
+cd flexran-manifests
+oc apply -k /redhat-nfvpe/flexran-manifests/tree/master/multicluster/placement/sites/sample_site
 ```
 
 ### Prerequisites
