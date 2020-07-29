@@ -7,7 +7,6 @@ resources:
 - rule/placement_rule_performance_profile.yaml
 - rule/placement_rule_ptp.yaml
 - rule/placement_rule_cluster_policy.yaml
-- rule/placement_rule_cr.yaml
 - rule/placement_rule_cvo.yaml
 - rule/placement_rule_sriov.yaml
 - subscription/sub_nfd.yaml
@@ -16,5 +15,4 @@ resources:
 - subscription/sub_sriov.yaml
 - policy/cluster_configuration_policy.yaml
 - policy/cluster_upgrade_policy.yaml
-- policy/cr_policy.yaml
 
