@@ -4,9 +4,9 @@ metadata:
   name: cvo-policy
   namespace: cluster-configuration
   annotations:
-    policy.mcm.ibm.com/standards: NIST-CSF
-    policy.mcm.ibm.com/categories: PR.IP Information Protection Processes and Procedures
-    policy.mcm.ibm.com/controls: PR.IP-1 Baseline configuration
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
 spec:
   complianceType: musthave
   remediationAction: enforce
