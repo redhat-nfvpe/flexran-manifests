@@ -10,6 +10,6 @@ spec:
     node-role.kubernetes.io/worker: ""
   priority: 10
   numVfs: 3
-  nicSelector: {} 
+  #nicSelector:
   #    vendor: "8086"
   #    rootDevices: ["0000:03:00.0"] 
