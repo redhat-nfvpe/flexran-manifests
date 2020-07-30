@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
 - nfd/nfd_operator.yaml
 - nfd/nfd_cr.yaml
-- rl/resource_locker_operator.yaml
 
