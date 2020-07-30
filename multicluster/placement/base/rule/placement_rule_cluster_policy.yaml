@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: cluster-configuration
 ---
-apiVersion: mcm.ibm.com/v1alpha1
+apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: cluster-configuration-policy
@@ -16,7 +16,7 @@ placementRef:
 subjects:
 - name: cluster-configuration-policy
   kind: Policy
-  apiGroup: policy.mcm.ibm.com
+  apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
