@@ -7,4 +7,5 @@ patchesStrategicMerge:
 - sub_performance_profile.yaml
 - sub_ptp.yaml
 - sub_sriov.yaml
+- sub_multus.yaml
 
