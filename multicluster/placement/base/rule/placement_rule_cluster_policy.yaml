@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: cluster-configuration
 ---
-apiVersion: apps.open-cluster-management.io/v1
+apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: cluster-configuration-policy
