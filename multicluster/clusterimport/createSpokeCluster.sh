@@ -1,10 +1,16 @@
 #Note this scripts assume that you have the kubeconfigs from the hub and the newly created spoke-cluster as a context
 #like here: https://openshift.tips/oc/#merge-multiple-kubeconfigs
+# in this example we have
+# oc config get-contexts
+#  CURRENT   NAME            CLUSTER        AUTHINFO        NAMESPACE
+#         hubcluster      cluster-09ec   hubcluster      
+#         spokecluster1   acmdemo        spokecluster1   
 
-export CLUSTER_NAME=newspokecluster
 
-oc --context=hub new-project ${CLUSTER_NAME}
-oc --context=hub label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
+export CLUSTER_NAME=spokecluster1 
+
+oc --context=hubcluster new-project ${CLUSTER_NAME}
+oc --context=hubcluster label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
 
 cat > managed-cluster.yaml <<EOF
 apiVersion: cluster.open-cluster-management.io/v1
@@ -15,7 +21,7 @@ spec:
   hubAcceptsClient: true
 EOF
 
-oc apply -f managed-cluster.yaml
+oc --context=hubcluster apply -f managed-cluster.yaml
 
 cat > klusterletaddonconfig.yaml <<EOF
 apiVersion: agent.open-cluster-management.io/v1
@@ -42,13 +48,17 @@ spec:
   version: 2.0.0
 EOF
 
-oc --context=hub apply -f klusterletaddonconfig.yaml
+oc --context=hubcluster  apply -f klusterletaddonconfig.yaml
 
-oc --context=hub get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
+sleep 2
 
-#Note
-oc  --context=hub get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
+oc --context=hubcluster  get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
+
+oc  --context=hubcluster  get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
 
 
-oc --context=newspokecluster apply -f klusterlet-crd.yaml
-oc --context=newspokecluster apply -f import.yaml
+oc --context=spokecluster1 apply -f klusterlet-crd.yaml
+
+sleep 2
+
+oc --context=spokecluster1 apply -f import.yaml
