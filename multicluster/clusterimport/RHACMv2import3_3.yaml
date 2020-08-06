@@ -1,0 +1,201 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: klusterlet
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  - serviceaccounts
+  verbs:
+  - create
+  - get
+  - list
+  - update
+  - watch
+  - patch
+  - delete
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+- apiGroups:
+  - ""
+  - events.k8s.io
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - get
+  - list
+  - update
+  - watch
+  - patch
+  - delete
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  - rolebindings
+  verbs:
+  - create
+  - get
+  - list
+  - update
+  - watch
+  - patch
+  - delete
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterroles
+  - roles
+  verbs:
+  - create
+  - get
+  - list
+  - update
+  - watch
+  - patch
+  - delete
+  - escalate
+  - bind
+- apiGroups:
+  - operator.open-cluster-management.io
+  resources:
+  - klusterlets
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - operator.open-cluster-management.io
+  resources:
+  - klusterlets/status
+  verbs:
+  - update
+  - patch
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+  name: open-cluster-management:klusterlet-admin-aggregate-clusterrole
+rules:
+- apiGroups:
+  - operator.open-cluster-management.io
+  resources:
+  - klusterlets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: klusterlet
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: klusterlet
+subjects:
+- kind: ServiceAccount
+  name: klusterlet
+  namespace: open-cluster-management-agent
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: open-cluster-management-agent
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: klusterlet
+  namespace: open-cluster-management-agent
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: klusterlet
+  name: klusterlet
+  namespace: open-cluster-management-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: klusterlet
+  template:
+    metadata:
+      labels:
+        app: klusterlet
+    spec:
+      containers:
+      - args:
+        - /registration-operator
+        - klusterlet
+        image: registry.redhat.io/rhacm2/registration-rhel8-operator@sha256:0630bca8263f93a4a1348e6bd5a8689157739e8ab09d4f3354acb4be1bf66dda
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 2
+          periodSeconds: 10
+        name: klusterlet
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 2
+      serviceAccountName: klusterlet
+
+---
+apiVersion: operator.open-cluster-management.io/v1
+kind: Klusterlet
+metadata:
+  name: klusterlet
+spec:
+  clusterName: mycluster
+  namespace: open-cluster-management-agent
+  registrationImagePullSpec: registry.redhat.io/rhacm2/registration-rhel8@sha256:31959369a31dc75dc5c7844377f32a510b3dae3f274c0318418ae4cbf7d0568b
+  workImagePullSpec: registry.redhat.io/rhacm2/work-rhel8@sha256:9edb8e1a4a2b66fa9aef27676ed8e66851f4462287ca3548c58af164e8095897
