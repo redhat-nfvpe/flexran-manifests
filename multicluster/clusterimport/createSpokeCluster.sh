@@ -3,8 +3,8 @@
 # in this example we have
 # oc config get-contexts
 #  CURRENT   NAME            CLUSTER        AUTHINFO        NAMESPACE
-#         hubcluster      cluster-09ec   hubcluster      
-#         spokecluster1   acmdemo        spokecluster1   
+#         kubehub      cluster-09ec   hubcluster      
+#         kubespoke1   acmdemo        spokecluster1   
 
 
 export CLUSTER_NAME=spokecluster1 
