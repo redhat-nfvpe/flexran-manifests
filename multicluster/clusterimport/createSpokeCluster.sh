@@ -8,9 +8,11 @@
 
 
 export CLUSTER_NAME=spokecluster1 
+export HUB_CONTEXT=kubehub
+export SPOKE_CONTEXT=kubespoke1
 
-oc --context=hubcluster new-project ${CLUSTER_NAME}
-oc --context=hubcluster label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
+oc --context=$HUB_CONTEXT new-project ${CLUSTER_NAME}
+oc --context=$HUB_CONTEXT label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
 
 cat > managed-cluster.yaml <<EOF
 apiVersion: cluster.open-cluster-management.io/v1
@@ -21,7 +23,7 @@ spec:
   hubAcceptsClient: true
 EOF
 
-oc --context=hubcluster apply -f managed-cluster.yaml
+oc --context=$HUB_CONTEXT apply -f managed-cluster.yaml
 
 cat > klusterletaddonconfig.yaml <<EOF
 apiVersion: agent.open-cluster-management.io/v1
@@ -48,17 +50,17 @@ spec:
   version: 2.0.0
 EOF
 
-oc --context=hubcluster  apply -f klusterletaddonconfig.yaml
+oc --context=$HUB_CONTEXT  apply -f klusterletaddonconfig.yaml
 
 sleep 2
 
-oc --context=hubcluster  get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
+oc --context=$HUB_CONTEXT  get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
 
-oc  --context=hubcluster  get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
+oc  --context=$HUB_CONTEXT  get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
 
 
-oc --context=spokecluster1 apply -f klusterlet-crd.yaml
+oc --context=$SPOKE_CONTEXT  apply -f klusterlet-crd.yaml
 
 sleep 2
 
-oc --context=spokecluster1 apply -f import.yaml
+oc --context=$SPOKE_CONTEXT  apply -f import.yaml
