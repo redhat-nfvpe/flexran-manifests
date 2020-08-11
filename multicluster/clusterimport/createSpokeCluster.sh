@@ -6,10 +6,16 @@
 #         kubehub      cluster-09ec   hubcluster      
 #         kubespoke1   acmdemo        spokecluster1   
 
+echo -ne "Enter your CLUSTER_NAME"
+read -s CLUSTER_NAME
+echo -ne "Enter your HUB_CONTEXT"
+read -s HUB_CONTEXT
+echo -ne "\nEnter your SPOKE_CONTEXT"
+read -s SPOKE_CONTEXT
 
-export CLUSTER_NAME=spokecluster1 
-export HUB_CONTEXT=kubehub
-export SPOKE_CONTEXT=kubespoke1
+#export CLUSTER_NAME=spokecluster1 
+#export HUB_CONTEXT=kubehub
+#export SPOKE_CONTEXT=kubespoke1
 
 oc --context=$HUB_CONTEXT new-project ${CLUSTER_NAME}
 oc --context=$HUB_CONTEXT label namespace ${CLUSTER_NAME} cluster.open-cluster-management.io/managedCluster=${CLUSTER_NAME}
