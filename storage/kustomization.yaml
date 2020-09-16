@@ -1,0 +1,4 @@
+resources:
+- lso.yaml
+- localvolume.yaml
+- storageclass.yaml
