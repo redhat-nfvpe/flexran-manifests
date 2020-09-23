@@ -6,7 +6,7 @@ pipeline {
     }
 
     parameters {
-        string(name:"KUBECONFIG", defaultValue: "/root/clusterconfigs/auth/kubeconfig", description: "Kubeconfig for the existing cluster", trim: true)
+        string(name:"KUBECONFIG", defaultValue: "/root/clusterconfigs/master/auth/kubeconfig", description: "Kubeconfig for the existing cluster", trim: true)
         string(name:"GIT_REPO", defaultValue: "git://github.com/redhat-nfvpe/flexran-manifests.git", description: "Repo to clone containing the ACM manifests", trim: true)
         string(name:"GIT_BRANCH", defaultValue: "master", description: "Branch for the git repo", trim: true)
     }
