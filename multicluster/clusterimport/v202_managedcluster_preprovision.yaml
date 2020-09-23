@@ -1,0 +1,33 @@
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    cloud: auto-detect
+    vendor: auto-detect
+    name: slave-cluster
+  name: slave-cluster
+spec:
+  hubAcceptsClient: true
+---
+apiVersion: agent.open-cluster-management.io/v1
+kind: KlusterletAddonConfig
+metadata:
+  name: slave-cluster
+  namespace: open-cluster-management-agent
+spec:
+  clusterName: slave-cluster
+  clusterNamespace: open-cluster-management-agent
+  clusterLabels:
+    cloud: auto-detect
+    vendor: auto-detect
+  applicationManager:
+    enabled: true
+  policyController:
+    enabled: true
+  searchCollector:
+    enabled: true
+  certPolicyController:
+    enabled: true
+  iamPolicyController:
+    enabled: true
+  version: 2.0.0

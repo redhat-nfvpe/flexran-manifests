@@ -1,0 +1,60 @@
+env.SSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${params.HOST}"
+
+pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '100'))
+    }
+
+    parameters {
+        string(name:"KUBECONFIG", defaultValue: "/root/clusterconfigs/auth/kubeconfig", description: "Kubeconfig for the existing cluster", trim: true)
+        string(name:"GIT_REPO", defaultValue: "git://github.com/redhat-nfvpe/flexran-manifests.git", description: "Repo to clone containing the ACM manifests", trim: true)
+        string(name:"GIT_BRANCH", defaultValue: "master", description: "Branch for the git repo", trim: true)
+    }
+
+    agent { label 'worker' }
+
+    environment {
+            BASE_REPO_DIR = sh(returnStdout: true, script: "echo $WORKSPACE/flexran-manifests").trim()
+    }
+
+    stages {
+        stage('Prepare Workspace') {
+            steps {
+                // cleanup workspace
+                step([$class: 'WsCleanup'])
+
+                script {
+                    // Set the build description to trigger user
+                    currentBuild.getBuildCauses().reverse().eachWithIndex { foo, index ->
+                        if(currentBuild.getBuildCauses().reverse()[index].userName != null) {
+                            currentBuild.description = "Triggered by: " + currentBuild.getBuildCauses().reverse()[index].userName
+                            return true
+                        }
+                    }
+                }
+
+                sh '''
+		# clone the repo
+                git -c http.sslVerify=false clone --single-branch --branch $GIT_BRANCH $GIT_REPO $BASE_REPO_DIR
+                '''
+
+            }
+        }
+
+        stage('Deploy ACM') {            
+            steps {
+                sh '''
+		export KUBECONFIG=${KUBECONFIG}
+		for i in {1..30}; do
+			kubectl apply -k ${BASE_REPO_DIR}/acm_deployment/
+			if [ $? -eq 0 ]; then
+				break
+			fi
+			sleep 30
+		done
+                '''
+            }
+        }
+
+    }
+}  // pipeline
