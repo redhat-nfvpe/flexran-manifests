@@ -44,6 +44,7 @@ pipeline {
         stage('Deploy ACM') {            
             steps {
                 sh '''
+		set +e
 		export KUBECONFIG=${KUBECONFIG}
 		for i in {1..30}; do
 			kubectl apply -k ${BASE_REPO_DIR}/acm_deployment/
@@ -52,6 +53,7 @@ pipeline {
 			fi
 			sleep 30
 		done
+		set -e
                 '''
             }
         }
