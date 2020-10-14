@@ -18,8 +18,8 @@ spec:
         metadata:
           name: version
         spec:
-          channel: stable-4.6
+          channel: candidate-4.6
           upstream: https://api.openshift.com/api/upgrades_info/v1/graph
           desiredUpdate:
-            version: 4.6.0-fc.8
+            version: 4.6.0-rc.4
       remediationAction: enforce
