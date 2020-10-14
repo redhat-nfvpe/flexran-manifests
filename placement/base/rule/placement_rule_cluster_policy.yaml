@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cluster-configuration
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  name: cluster-configuration-policy
+  namespace: cluster-configuration
+placementRef:
+  name: cluster-configuration-rule
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: cluster-configuration-policy
+  kind: Policy
+  apiGroup: policy.mcm.ibm.com
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: cluster-configuration-rule
+  namespace: cluster-configuration
+spec:
+  clusterConditions:
+  - type: OK
