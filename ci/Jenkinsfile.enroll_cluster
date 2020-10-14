@@ -6,7 +6,8 @@ pipeline {
     }
 
     parameters {
-        string(name:"KUBECONFIG", defaultValue: "/root/clusterconfigs/master/auth/kubeconfig", description: "Kubeconfig for the existing cluster", trim: true)
+        string(name:"KUBECONFIG_HUB", defaultValue: "/root/clusterconfigs/master/auth/kubeconfig", description: "Kubeconfig for the existing hub cluster", trim: true)
+        string(name:"KUBECONFIG_SPOKE", defaultValue: "/root/clusterconfigs/slave/auth/kubeconfig", description: "Kubeconfig for the existing spoke cluster", trim: true)
         string(name:"GIT_REPO", defaultValue: "git://github.com/redhat-nfvpe/flexran-manifests.git", description: "Repo to clone containing the ACM manifests", trim: true)
         string(name:"GIT_BRANCH", defaultValue: "master", description: "Branch for the git repo", trim: true)
     }
@@ -41,13 +42,13 @@ pipeline {
             }
         }
 
-        stage('Deploy ACM') {            
+        stage('Pre-create cluster in hub') {            
             steps {
                 sh '''
 		set +e
-		export KUBECONFIG=${KUBECONFIG}
+		export KUBECONFIG=${KUBECONFIG_HUB}
 		for i in {1..30}; do
-			kubectl apply -k ${BASE_REPO_DIR}/acm_deployment/
+			kubectl apply -k ${BASE_REPO_DIR}/import_cluster/hub/
 			if [ $? -eq 0 ]; then
 				break
 			fi
@@ -58,6 +59,34 @@ pipeline {
             }
         }
 
+        stage('Inject credentials on spoke') {            
+            steps {
+                sh '''
+		set +e
+		export KUBECONFIG_HUB_CONTENT=$(cat $KUBECONFIG_HUB | base64 -w 0)
+		sed -i "s/\\$KUBECONFIG/${KUBECONFIG_HUB_CONTENT}/" ${BASE_REPO_DIR}/import_cluster/spoke/v204_bootstrap_secret.yaml
+		set -e
+                '''
+            }
+        }
+
+        stage('Import spoke') {            
+            steps {
+                sh '''
+		set +e
+		export KUBECONFIG=${KUBECONFIG_SPOKE}
+		for i in {1..30}; do
+			kubectl apply -k ${BASE_REPO_DIR}/import_cluster/spoke/
+			if [ $? -eq 0 ]; then
+				break
+			fi
+			sleep 30
+		done
+		set -e
+                '''
+            }
+        }
+
+
     }
 }  // pipeline
-
