@@ -5,6 +5,5 @@ metadata:
   namespace: openshift-performance-addon
 spec:
   clusterConditions:
-    - type: OK
-  clusterSelector:
-    matchExpressions: []
+    - type: "ManagedClusterConditionAvailable"
+      status: "True"
