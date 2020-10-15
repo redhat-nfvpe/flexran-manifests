@@ -4,5 +4,5 @@ metadata:
   name: acm-gitops-github
   namespace: flexran-workloads
 spec:
-  type: GitHub
+  type: Git
   pathname: https://github.com/redhat-nfvpe/flexran-manifests.git
