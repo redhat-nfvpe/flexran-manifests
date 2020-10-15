@@ -10,6 +10,7 @@ metadata:
   namespace: openshift-sriov-network-operator
   annotations:
     apps.open-cluster-management.io/git-path: cluster_configuration/sites/sample_site/sriov
+    apps.open-cluster-management.io/reconcile-option: merge
 spec:
   channel: flexran-workloads/acm-gitops-github
   name: flexran-sriov
