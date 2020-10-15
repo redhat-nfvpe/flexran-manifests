@@ -19,5 +19,5 @@ metadata:
   namespace: cluster-configuration
 spec:
   clusterConditions:
-    - type: "ManagedClusterConditionAvailable"
+    - type: ManagedClusterConditionAvailable
       status: "True"
