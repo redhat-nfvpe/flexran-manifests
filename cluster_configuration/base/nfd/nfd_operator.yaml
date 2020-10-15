@@ -13,7 +13,7 @@ metadata:
   name: nfd
   namespace: openshift-nfd
 spec:
-  channel: "4.6"
+  channel: "4.5"
   name: nfd
   source: redhat-operators
   sourceNamespace: openshift-marketplace
