@@ -2,7 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: cvo-policy
-  namespace: cluster-configuration
+  namespace: default
 placementRef:
   name: cvo-rule
   kind: PlacementRule
@@ -16,7 +16,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: cvo-rule
-  namespace: cluster-configuration
+  namespace: default
 spec:
   clusterConditions:
     - type: ManagedClusterConditionAvailable

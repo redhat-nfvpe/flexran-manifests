@@ -2,26 +2,39 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: cluster-configuration-policy
-  namespace: cluster-configuration
+  namespace: default
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
 spec:
   complianceType: musthave
   remediationAction: enforce
   disabled: false
-  namespaces:
-    exclude: ["kube-*"]
-    include: ["default"]
-  object-templates:
-    - complianceType: musthave
-      objectDefinition:
-        apiVersion: imageregistry.operator.openshift.io/v1
-        kind: Config
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
         metadata:
-          name: cluster
+          name: cluster-configuration-policy
         spec:
-          managementState: Managed
-          replicas: 1
-          logging: 2
-          storage:
-            emptyDir: {}
-          pvc:
-            claim:
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - '*'
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: imageregistry.operator.openshift.io/v1
+                kind: Config
+                metadata:
+                  name: cluster
+                spec:
+                  managementState: Managed
+                  replicas: 1
+                  storage:
+                    emptyDir: {}
+                  pvc:
+                    claim:

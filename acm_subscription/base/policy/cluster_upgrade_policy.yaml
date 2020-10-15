@@ -2,24 +2,38 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: cvo-policy
-  namespace: cluster-configuration
+  namespace: default
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
 spec:
   complianceType: musthave
   remediationAction: enforce
   disabled: false
-  namespaces:
-    exclude: ["kube-*"]
-    include: ["default"]
-  object-templates:
-    - complianceType: musthave
-      objectDefinition:
-        apiVersion: config.openshift.io/v1
-        kind: ClusterVersion
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
         metadata:
-          name: version
+          name: cvo-policy
         spec:
-          channel: candidate-4.6
-          upstream: https://api.openshift.com/api/upgrades_info/v1/graph
-          desiredUpdate:
-            version: 4.6.0-rc.4
-      remediationAction: enforce
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - '*'
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: config.openshift.io/v1
+                kind: ClusterVersion
+                metadata:
+                  name: version
+                spec:
+                  channel: candidate-4.6
+                  upstream: https://api.openshift.com/api/upgrades_info/v1/graph
+                  desiredUpdate:
+                    image: quay.io/openshift-release-dev/ocp-release@sha256:2c22e1c56831935a24efb827d2df572855ccd555c980070f77c39729526037d5
+              remediationAction: enforce
+          severity: high

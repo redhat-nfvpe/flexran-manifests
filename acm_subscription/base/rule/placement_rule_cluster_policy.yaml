@@ -8,7 +8,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: cluster-configuration-policy
-  namespace: cluster-configuration
+  namespace: default
 placementRef:
   name: cluster-configuration-rule
   kind: PlacementRule
@@ -22,7 +22,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: cluster-configuration-rule
-  namespace: cluster-configuration
+  namespace: default
 spec:
   clusterConditions:
     - type: ManagedClusterConditionAvailable
