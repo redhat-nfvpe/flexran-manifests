@@ -9,7 +9,7 @@ metadata:
   name: flexran-performance
   namespace: openshift-performance-addon
   annotations:
-    apps.open-cluster-management.io/github-path: cluster_configuration/sites/sample_site/performance_profile/
+    apps.open-cluster-management.io/git-path: cluster_configuration/sites/sample_site/performance_profile/
 spec:
   channel: flexran-workloads/acm-gitops-github
   name: flexran-performance
@@ -17,4 +17,3 @@ spec:
     placementRef:
       kind: PlacementRule
       name: apply-performance-to-ready-clusters
-      apiGroup: apps.open-cluster-management.io

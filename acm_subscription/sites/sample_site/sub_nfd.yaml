@@ -9,7 +9,7 @@ metadata:
   name: flexran-nfd
   namespace: openshift-nfd
   annotations:
-    apps.open-cluster-management.io/github-path: cluster_configuration/sites/sample_site/nfd
+    apps.open-cluster-management.io/git-path: cluster_configuration/sites/sample_site/nfd
 spec:
   channel: flexran-workloads/acm-gitops-github
   name: flexran-nfd
@@ -17,4 +17,3 @@ spec:
     placementRef:
       kind: PlacementRule
       name: apply-nfd-to-ready-clusters
-      apiGroup: apps.open-cluster-management.io

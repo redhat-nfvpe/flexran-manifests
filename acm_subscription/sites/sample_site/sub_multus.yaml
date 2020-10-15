@@ -9,7 +9,7 @@ metadata:
   name: flexran-multus-networks
   namespace: multus-networks
   annotations:
-    apps.open-cluster-management.io/github-path: cluster_configuration/sites/sample_site/multus
+    apps.open-cluster-management.io/git-path: cluster_configuration/sites/sample_site/multus
 spec:
   channel: flexran-workloads/acm-gitops-github
   name: flexran-multus-networks
@@ -17,4 +17,3 @@ spec:
     placementRef:
       kind: PlacementRule
       name: apply-multus-to-ready-clusters
-      apiGroup: apps.open-cluster-management.io

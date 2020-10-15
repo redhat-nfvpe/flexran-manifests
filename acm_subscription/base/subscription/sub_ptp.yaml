@@ -9,7 +9,7 @@ metadata:
   name: flexran-ptp
   namespace: openshift-ptp
   annotations:
-    apps.open-cluster-management.io/github-path: cluster_configuration/sites/sample_site/ptp
+    apps.open-cluster-management.io/git-path: cluster_configuration/sites/sample_site/ptp
 spec:
   channel: flexran-workloads/acm-gitops-github
   name: flexran-ptp
@@ -17,4 +17,3 @@ spec:
     placementRef:
       kind: PlacementRule
       name: apply-ptp-to-ready-clusters
-      apiGroup: apps.open-cluster-management.io
